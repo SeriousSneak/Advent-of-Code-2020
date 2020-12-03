@@ -30,7 +30,7 @@ namespace Part_1
             var input = File.ReadLines(@"C:\Users\astobart\OneDrive\Work\Code\Advent of Code\2020\Day 3\Part 1\input.txt");
             int rowCount = 0,  colCount = 0;
 
-
+            //fill up my array so that each cell has a single character
             foreach (var line in input)
             {
                 string currentLine = line;

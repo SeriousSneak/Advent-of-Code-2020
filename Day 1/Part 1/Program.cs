@@ -41,7 +41,7 @@ namespace Problem_1
                     {
                         Console.WriteLine("An answer has been found. The numbers are " + number1 + " and " + number2 + ".");
                         theOutsideCount = int.MaxValue - 1; //break the outside loop
-                        break; //break the inside loop
+                        break; //break the current loop
                     }
                 }
             }
