@@ -1,4 +1,14 @@
-﻿using System;
+﻿/* Advent of Code 2020
+ * 
+ * Programmer: Andrew Stobart
+ * Date: December 4,2020
+ * 
+ * Day 4 Part 2
+ * 
+ * This code could be made much more efficient.... but it got me the write answer and I'm leaving it like this.
+ */
+
+using System;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -10,7 +20,7 @@ namespace Part_2
     {
         static void Main(string[] args)
         {
-            var lines = File.ReadLines(@"C:\Users\astobart\OneDrive\Work\Code\Advent of Code\2020\Day 4\Part 2\input_test.txt");
+            var lines = File.ReadLines(@"C:\Users\astobart\OneDrive\Work\Code\Advent of Code\2020\Day 4\Part 2\input.txt");
 
             string passport = "";
 
@@ -170,16 +180,17 @@ namespace Part_2
             }
 
             Console.WriteLine("");
-            Console.WriteLine("There are " + numberOfValidPassports + " valid passports and " + numberOfInvalidPassports + " invalid passports.");
             Console.WriteLine("There are " + totalNumberOfPassports + " total passports.");
+            Console.WriteLine("There are " + numberOfValidPassports + " valid passports and " + numberOfInvalidPassports + " invalid passports.");
+
 
             Console.WriteLine("");
             Console.WriteLine("Press any key to continue.");
             Console.ReadKey();
 
             /*
-            That's not the right answer; your answer is too low. If you're stuck, make sure you're using the full input data; there are also some general tips on the about page, 
-            or you can ask for hints on the subreddit. Please wait one minute before trying again. (You guessed 181.) [Return to Day 4]
+            That's not the right answer; your answer is too high. If you're stuck, make sure you're using the full input data; there are also some general tips on the about page, 
+            or you can ask for hints on the subreddit. Please wait one minute before trying again. (You guessed 110.) [Return to Day 4]
             */
         }
 
@@ -216,30 +227,93 @@ namespace Part_2
 
 
                 //checking Height (hgt) - cell 1,3
-                    int string resultString = Regex.Match(subjectString, @"\d+").Value;
+                //extract the number from the string
+                string resultString = Regex.Match(pv[1,3], @"\d+").Value;
+                int heightValue = Int32.Parse(resultString);
+
+                //extract the letters from the string
+                string heightUnits = new string(pv[1, 3].Where(Char.IsLetter).ToArray());
+
+                if (heightUnits == "cm")
+                {
+                    if (heightValue < 150 || heightValue > 193)
+                    {
+                        stillValid = false;
+                    }
+                }
+                else if (heightUnits == "in")
+                {
+                    if (heightValue < 59 || heightValue > 76)
+                    {
+                        stillValid = false;
+                    }
+                }
+                else
+                {
+                    stillValid = false;
+                }
 
 
 
-                //checking Hair Color (hcl - cell 1,4
+                //checking Hair Color (hcl) - cell 1,4
 
+                char[] charArr = pv[1, 4].ToCharArray();
 
+                bool looksGood = true; //assume this value is valid
+                if (charArr.Length == 7)
+                {
+                    if (charArr[0] == '#')
+                    {
+                        for (int looper = 1; looper < 7; looper++)
+                        {
+                            if (Char.IsLetter(charArr[looper]))
+                            {
+                                if (charArr[looper] > 'f')
+                                {
+                                    looksGood = false;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        looksGood = false;
+                    }
+                }
+                else
+                {
+                    looksGood = false;
+                }
+                
+                if (looksGood == false)
+                {
+                    stillValid = false;
+                }
+
+                
                 //checking Eye Color (ecl) - cell 1,5
-                if (pv[1,5] == "amb" || pv[1, 5] == "blu" || pv[1, 5] == "brn" || pv[1, 5] == "gry" || pv[1, 5] == "hzl" || pv[1, 5] == "oth")
+                if (pv[1,5] != "amb" && pv[1, 5] != "blu" && pv[1, 5] != "brn" && pv[1, 5] != "gry" && pv[1,5] != "grn" && pv[1, 5] != "hzl" && pv[1, 5] != "oth")
                 {
                     stillValid = false;
                 }
 
 
                 //checking Passport ID - cell 1,6
-                if ((pv[1,6]).Length < 9 || pv[1,6].Length > 9)
+                if (pv[1,6].Length != 9)
                 {
                     stillValid = false;
                 }
+                else //check if there are letters present
+                {
+                    string checkForLetters = "";
+                    checkForLetters = new string(pv[1, 6].Where(Char.IsLetter).ToArray());
+                    if (checkForLetters != "")
+                    {
+                        stillValid = false;
+                    }
+                }
 
-
-
-
-                    return stillValid;
+                return stillValid;
             }
 
         }

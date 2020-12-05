@@ -180,8 +180,9 @@ namespace Part_1
             }
 
             Console.WriteLine("");
-            Console.WriteLine("There are " + numberOfValidPassports + " valid passports and " + numberOfInvalidPassports + " invalid passports.");
             Console.WriteLine("There are " + totalNumberOfPassports + " total passports.");
+            Console.WriteLine("There are " + numberOfValidPassports + " valid passports and " + numberOfInvalidPassports + " invalid passports.");
+
 
             Console.WriteLine("");
             Console.WriteLine("Press any key to continue.");
