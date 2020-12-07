@@ -128,7 +128,9 @@ namespace Part_1
 
             totalNumberOfPassports++;
 
-            //to check the very last passport on the list. This is needed as there is no blank line after the last entry
+            //to check the very last passport on the list. This is needed as there is no blank line after the last entry. Rather than doing this check again, I could have modified
+            //my code above so that the last entry was checked in the above loop. See code from Day 6 Part 1, which is a similar file read, but I do all the checks in a single
+            //loop and don't need a second check for the last entry after the loop finishes
 
             string[] subStrings2 = passport.Split(':', ' ');
             for (int theLoop = 0; theLoop < subStrings2.Count(); theLoop += 2)
