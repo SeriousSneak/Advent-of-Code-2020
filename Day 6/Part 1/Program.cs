@@ -31,7 +31,6 @@ namespace Part_1
             int totalUnique = 0;
 
             int counter = 1;
-            bool lastLine = false;
 
             foreach(var line in lines)
             {
