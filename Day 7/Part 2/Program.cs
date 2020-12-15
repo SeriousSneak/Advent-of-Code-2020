@@ -1,7 +1,7 @@
 ﻿/* Advent of Code 2020
  * 
  * Programmer: Andrew Stobart
- * Started December 11,2020
+ * Started December 14,2020
  * Solved
  * 
  * Day 7 Part 2
@@ -16,23 +16,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Runtime.CompilerServices;
+using System.Runtime.Remoting.Channels;
 
 namespace Part_2
 {
     class Program
     {
+
+        struct bagDataStruct
+        {
+            public string colour;
+            public int count;
+        }
+
         static void Main(string[] args)
         {
-            var lines = File.ReadLines(@"C:\Users\astobart\OneDrive\Work\Code\Advent of Code\2020\Day 7\Part 1\input.txt");
+            var lines = File.ReadLines(@"C:\Users\astobart\OneDrive\Work\Code\Advent of Code\2020\Day 7\Part 2\input.txt");
 
+            bagDataStruct bagData = new bagDataStruct();
 
             string[] stringSeparators = new string[] { "contain", " ", "bags", "bag", ".", ",", "" };
-            Dictionary<string, List<string>> myDic = new Dictionary<string, List<string>>();
+            Dictionary<string, List<bagDataStruct>> myDic = new Dictionary<string, List<bagDataStruct>>();
 
             foreach (var line in lines)
             {
                 string outsideBag = "";
-                List<string> insideBagsList = new List<string>();
+                List<bagDataStruct> insideBagsList = new List<bagDataStruct>();
 
                 //set the key for the dictionary to be the first colour on the line
                 string[] currentLine = line.Split(stringSeparators, StringSplitOptions.RemoveEmptyEntries);
@@ -41,7 +51,10 @@ namespace Part_2
                 {
                     if (currentLine[x] != "" && currentLine[x] != "other")
                     {
-                        insideBagsList.Add(currentLine[x] + " " + currentLine[x + 1]);
+                        bagData.colour = currentLine[x] + " " + currentLine[x + 1];
+                        bagData.count = Int32.Parse(currentLine[x - 1]);
+
+                        insideBagsList.Add(bagData);
                     }
                     else
                     {
@@ -57,18 +70,11 @@ namespace Part_2
             }
 
             int bagCounter = 0;
-            foreach (string item in myDic.Keys)
-            {
-                if (item != "shiny gold")    //prevents us from couting if the outside bag is Shiny gold. We don't want Shiny gold to be the outside bag
-                {
-                    if (containsShiny(item, myDic) == true)
-                    {
-                        bagCounter++;
-                    }
-                }
-            }
 
-            Console.WriteLine("There are " + bagCounter + " bags that can contain shiny gold bags.");
+
+            bagCounter = countBagsInside("shiny gold", myDic);
+
+            Console.WriteLine("There are " + bagCounter + " bags inside of a shiny gold bags.");
 
             Console.WriteLine("");
             Console.WriteLine("Press any key to continue.");
@@ -76,28 +82,45 @@ namespace Part_2
         }
 
 
-        static bool containsShiny(string bag, Dictionary<string, List<string>> myDic)
+        static int countBagsInside(string bag, Dictionary<string, List<bagDataStruct>> myDic)
         {
-            if (bag == "shiny gold")
+            List<bagDataStruct> subBags = new List<bagDataStruct>();
+            int count = 0; 
+
+            subBags = myDic[bag];
+
+
+            foreach (bagDataStruct subBag in subBags)
             {
-                return true;
+                count += subBag.count; //add amount of current bag
+                count += subBag.count * countBagsInside(subBag.colour, myDic); //Add amount of current bag (the coefficient) * the amount of bags inside the bag to the count
             }
-            else
-            {
-                List<string> subBags = new List<string>();
 
-                subBags = myDic[bag];
+            return count; //return a count of all the bags inside the current bag
 
-                foreach (string subBag in subBags)
-                {
-                    if (containsShiny(subBag, myDic) == true)
-                    {
-                        return true;
-                    }
-                }
 
-                return false;
-            }
+            /* the following from https://www.reddit.com/r/adventofcode/comments/k8xatx/2020_day_7_part_2_help_with_python3_recursive/gf11o1d/?utm_source=share&utm_medium=web2x&context=3
+             * helped me immensely. Also https://www.reddit.com/r/adventofcode/comments/kaf8v6/2020_day_7_part_2_something_missing/
+             * 
+             * 
+             *    def count_bags_inside(string):
+                  bags = rules_dict[string] #Dict of all bags in current bag
+                  count = 0 #init count
+                  if bags == {}: #If empty, return 0 because no bags are in it
+                      print(f"{string} empty, returning 0")
+                      return 0
+                  print(f"bags = {bags}")
+                  for bag in bags: #For each bag
+                    print(f"adding {rules_dict[string][bag]}")
+                    count += bags[bag] #Add amount of current bag
+                    print(f"going into {bag}")
+                    count += bags[bag] * count_bags_inside(bag) #Add amount of current bag (the coefficient) * the amount of bags inside the bag to the count
+                  return count #return a count of all the bags inside the current bag
+             * 
+             * 
+             */
+
+
         }
     }
 }

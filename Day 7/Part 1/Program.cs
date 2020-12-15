@@ -18,7 +18,7 @@ using System.IO;
 namespace Part_1
 {
 
-    
+    //this really helped me out https://www.reddit.com/r/adventofcode/comments/k8iun0/what_is_the_cleanestcanonical_day_7_part_1/
     
     class Program
     {
