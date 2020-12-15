@@ -1,8 +1,7 @@
 ﻿/* Advent of Code 2020
  * 
  * Programmer: Andrew Stobart
- * Started December 14,2020
- * Solved
+ * Date: December 14,2020
  * 
  * Day 7 Part 2
  *
