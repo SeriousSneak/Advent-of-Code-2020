@@ -1,0 +1,7 @@
+C:\Users\astobart\OneDrive\Work\Code\Advent of Code\2020\Day 9\Part 2\bin\Debug\Part 2.exe.config
+C:\Users\astobart\OneDrive\Work\Code\Advent of Code\2020\Day 9\Part 2\bin\Debug\Part 2.exe
+C:\Users\astobart\OneDrive\Work\Code\Advent of Code\2020\Day 9\Part 2\bin\Debug\Part 2.pdb
+C:\Users\astobart\OneDrive\Work\Code\Advent of Code\2020\Day 9\Part 2\obj\Debug\Part 2.csprojAssemblyReference.cache
+C:\Users\astobart\OneDrive\Work\Code\Advent of Code\2020\Day 9\Part 2\obj\Debug\Part 2.csproj.CoreCompileInputs.cache
+C:\Users\astobart\OneDrive\Work\Code\Advent of Code\2020\Day 9\Part 2\obj\Debug\Part 2.exe
+C:\Users\astobart\OneDrive\Work\Code\Advent of Code\2020\Day 9\Part 2\obj\Debug\Part 2.pdb
